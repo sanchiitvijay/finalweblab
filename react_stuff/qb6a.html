@@ -24,14 +24,14 @@ class Qb6a extends React.Component {
   
    render() {
       return (
-	  <form>
+	  
       <div>
 		    <label>Username : </label>
             <input type = "text" value = {this.state.data} 
-               onChange = {this.updateState.bind(this)} />
+               onChange = {this.updateState.bind((this))} />
             <h1>{this.state.data}</h1>
 		 </div>
-		 </form>
+		 
       );
    }
 }
