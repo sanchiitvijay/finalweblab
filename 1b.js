@@ -5,14 +5,13 @@ const app = express();
 const port = 3000;
 app.use(bodyParser.json());
 let db;
-const mongoUrl = process.env.MONGO_URL || 'mongodb://mongo:27017/student_records';
+const mongoUrl = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/student_records';
 MongoClient.connect(mongoUrl, function(err, database) {
     if(err) {
         console.log('Unable to connect to the mongoDB server. Error:', err);
     } else {
         console.log('Connection established to student_records database');
-        db = database;
-        
+        db = database;        
         app.listen(port, () => {
             console.log(`Server running on port ${port}`);
         });
@@ -21,7 +20,7 @@ MongoClient.connect(mongoUrl, function(err, database) {
 app.post('/students', (req, res) => {
     const { USN, Name, Subject_code, CIE } = req.body;   
     var collection = db.collection('students');
-    collection.insertOne({USN: USN, Name: Name, Subject_code: Subject_code, CIE: CIE}, function(err, docs) {
+    collection.insert({USN: USN, Name: Name, Subject_code: Subject_code, CIE: CIE}, function(err, docs) {
         if(err) {
             res.status(500).json({ error: err.message });
         } else {

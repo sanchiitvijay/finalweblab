@@ -5,6 +5,7 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 let db;
 const mongoHost = process.env.MONGO_HOST || '127.0.0.1';
@@ -51,6 +52,7 @@ app.get('/employees/high-salary', (req, res) => {
         if(err) {
             res.status(500).json({ error: err.message });
         } else {
+            console.log(results);
             res.status(200).json(results);
         }
     });
